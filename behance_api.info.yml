@@ -1,0 +1,6 @@
+name: 'Behance API'
+type: module
+description: 'Behance API module'
+package: Custom
+core: 8.x
+configure: behance_api.admin_settings

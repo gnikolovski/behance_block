@@ -1,0 +1,5 @@
+behance_api:
+  version: 1.x
+  css:
+    theme:
+      css/behance_api.css: {}
