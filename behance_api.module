@@ -1,7 +1,12 @@
 <?php
 
 /**
- * Theme hook
+ * @file
+ * Behance API module.
+ */
+
+/**
+ * Theme hook.
  */
 function behance_api_theme($existing, $type, $theme, $path) {
 
