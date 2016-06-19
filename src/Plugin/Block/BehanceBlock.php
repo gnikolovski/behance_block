@@ -31,11 +31,13 @@ class BehanceBlock extends BlockBase {
   */
   public function build() {
 
-  	$this->api_key = \Drupal::config('behance_api.settings')->get('api_key');
-    $this->user_id = \Drupal::config('behance_api.settings')->get('user_id');
-    $this->new_tab = \Drupal::config('behance_api.settings')->get('new_tab');
-    $this->behance_fields_date = \Drupal::config('behance_api.settings')->get('behance_fields_date');
-    $this->behance_projects_date = \Drupal::config('behance_api.settings')->get('behance_projects_date');
+    $config = $this->config('behance_api.settings');
+
+    $this->api_key = $config->get('behance_api.api_key');
+    $this->user_id = $config->get('behance_api.user_id');
+    $this->new_tab = $config->get('behance_api.new_tab');
+    $this->behance_fields_date = $config->get('behance_api.behance_fields_date');
+    $this->behance_projects_date = $config->get('behance_api.behance_projects_date');
 
     $output = array();
 
@@ -58,7 +60,7 @@ class BehanceBlock extends BlockBase {
     else {
 
       $output[] = array(
-        '#markup' => t('You must set an API key and username in the module settings. <a href="/admin/config/services/behance">Click here</a> to go the module settings.'),
+        '#markup' => $this->t('You must set an API key and username in the module settings. <a href="/admin/config/services/behance">Click here</a> to go the module settings.'),
         '#cache' => array('max-age' => 0),
         '#attached' => array('library' => array('behance_api/behance_api')),
       );
@@ -152,8 +154,9 @@ class BehanceBlock extends BlockBase {
       file_put_contents('public://behance_fields.json', $behance_fields_json);
 
       // Save date when the file is downloaded
-      $config = \Drupal::service('config.factory')->getEditable('behance_api.settings');
-      $config->set('behance_fields_date', date('d.m.Y'))->save();
+      $config = $this->config('behance_api.settings');
+      $config->set('behance_fields_date', date('d.m.Y'));
+      $config->save();
 
     }
 
@@ -172,8 +175,9 @@ class BehanceBlock extends BlockBase {
       file_put_contents('public://behance_projects.json', $projects_json);
 
       // Save date when the file is downloaded
-      $config = \Drupal::service('config.factory')->getEditable('behance_api.settings');
-      $config->set('behance_projects_date', date('d.m.Y'))->save();
+      $config = $this->config('behance_api.settings');
+      $config->set('behance_projects_date', date('d.m.Y'));
+      $config->save();
 
     }
 
@@ -230,7 +234,6 @@ class BehanceBlock extends BlockBase {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
     curl_setopt($ch, CURLOPT_URL, $url);
     $data = curl_exec($ch);
     curl_close($ch);
