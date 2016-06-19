@@ -5,7 +5,7 @@
   src: url("//a3.behance.net/fonts/BeIcons/BeIcons.eot?cb=1894785834?#iefix") format("embedded-opentype"), url("//a3.behance.net/fonts/BeIcons/BeIcons.woff?cb=1894785834") format("woff"), url("//a3.behance.net/fonts/BeIcons/BeIcons.ttf?cb=1894785834") format("truetype"), url("//a3.behance.net/fonts/BeIcons/BeIcons.svg?cb=1894785834#Behance") format("svg");
 }
 
-.project-cover{
+.project-cover {
   background: #fff none repeat scroll 0 0;
   display: inline-block;
   position: relative;
@@ -47,11 +47,13 @@
   white-space: nowrap;
 }
 
-.project-cover .cover-fields a, .project-cover .cover-fields span {
+.project-cover .cover-fields a,
+.project-cover .cover-fields span {
   color: dimgray;
 }
 
-.project-cover .cover-fields a:hover, .project-cover .cover-fields span:hover {
+.project-cover .cover-fields a:hover,
+.project-cover .cover-fields span:hover {
   color: #171717;
   text-decoration: none;
 }
@@ -67,7 +69,8 @@
   margin-bottom: 4px;
 }
 
-.project-cover .cover-by, .project-cover .cover-by-link {
+.project-cover .cover-by,
+.project-cover .cover-by-link {
   float: left;
 }
 
@@ -95,7 +98,8 @@
   position: relative;
 }
 
-.beicons, .beicons-pre::before {
+.beicons,
+.beicons-pre::before {
   -moz-user-select: none;
   display: inline-block;
   font-family: "BeIcons";
