@@ -1,14 +1,14 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\behance_api\Form\BehanceSettingsForm.
- */
-
 namespace Drupal\behance_api\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * @file
+ * Contains \Drupal\behance_api\Form\BehanceSettingsForm.
+ */
 
 /**
  * Defines a form that configures behance api settings.
@@ -36,7 +36,7 @@ class BehanceSettingsForm extends ConfigFormBase {
 
     $config = $this->config('behance_api.settings');
 
-    // API key field
+    // API key field.
     $form['api_key'] = array(
       '#type' => 'textfield',
       '#title' => t('API Key'),
@@ -45,16 +45,16 @@ class BehanceSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('api_key'),
     );
 
-    // User ID or username field
+    // User ID or username field.
     $form['user_id'] = array(
       '#type' => 'textfield',
       '#title' => t('Username or User ID'),
       '#required' => TRUE,
-      '#description' => t('Enter portfolio owner\'s ID or username.'),
+      '#description' => t("Enter portfolio owner's ID or username."),
       '#default_value' => $config->get('user_id'),
     );
 
-    // New tab checkbox
+    // New tab checkbox.
     $form['new_tab'] = array(
       '#type' => 'checkbox',
       '#title' => t('Open links in new tab'),
@@ -74,13 +74,13 @@ class BehanceSettingsForm extends ConfigFormBase {
     $api_key = $form_state->getValue('api_key');
     $user_id = $form_state->getValue('user_id');
 
-    $is_data_valid = $this->is_data_valid($api_key, $user_id);
+    $isDataValid = $this->isDataValid($api_key, $user_id);
 
-    if ($is_data_valid == 403) {
+    if ($isDataValid == 403) {
       $form_state->setErrorByName('api_key', $this->t('Your API key is not valid'));
     }
 
-    if ($is_data_valid == 404) {
+    if ($isDataValid == 404) {
       $form_state->setErrorByName('user_id', $this->t('User not found'));
     }
 
@@ -91,7 +91,7 @@ class BehanceSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
-    $this->clear_cache_files();
+    $this->clearCacheFiles();
 
     $values = $form_state->getValues();
 
@@ -106,21 +106,23 @@ class BehanceSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * Check if API key and User ID are valid
+   * Check if API key and User ID are valid.
    */
-  private function is_data_valid($api_key, $user_id) {
+  private function isDataValid($api_key, $user_id) {
 
-    $response_json = $this->file_get_contents_curl('https://api.behance.net/v2/users/' . $user_id . '?client_id=' . $api_key);
+    $response_json = $this->fileGetContentsCurl('https://api.behance.net/v2/users/' . $user_id . '?client_id=' . $api_key);
 
-    $response_array = json_decode($response_json, true);
+    $response_array = json_decode($response_json, TRUE);
 
-    // Valid (200 = OK)
+    // Valid (200 = OK).
     if ($response_array['http_code'] == 200) {
       return 200;
-    } // API key in not valid
+    }
+    // API key in not valid.
     elseif ($response_array['http_code'] == 403) {
       return 403;
-    } // User not found
+    }
+    // User not found.
     elseif ($response_array['http_code'] == 404) {
       return 404;
     }
@@ -128,9 +130,9 @@ class BehanceSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * Delete cache files
+   * Delete cache files.
    */
-  private function clear_cache_files() {
+  private function clearCacheFiles() {
 
     if (file_exists('public://behance_fields.json')) {
       unlink('public://behance_fields.json');
@@ -143,14 +145,14 @@ class BehanceSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * File get contents with curl
+   * File get contents with curl.
    */
-  private function file_get_contents_curl($url) {
+  private function fileGetContentsCurl($url) {
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
     curl_setopt($ch, CURLOPT_URL, $url);
     $data = curl_exec($ch);
     curl_close($ch);
