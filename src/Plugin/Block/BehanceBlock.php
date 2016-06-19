@@ -26,9 +26,9 @@ class BehanceBlock extends BlockBase {
   private $behanceFieldsDate;
   private $behanceProjectsDate;
 
-   /**
-   * {@inheritdoc}
-   */
+  /**
+    * {@inheritdoc}
+    */
   public function build() {
 
     $config = $this->config('behance_api.settings');
@@ -53,7 +53,7 @@ class BehanceBlock extends BlockBase {
         '#tags' => $this->tags(),
         '#newTab' => $this->newTab(),
         '#cache' => array('max-age' => 0),
-        '#attached' => array('library' => array('behance_api/behance_api'),)
+        '#attached' => array('library' => array('behance_api/behance_api')),
       );
 
     }
