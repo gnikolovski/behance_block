@@ -60,7 +60,7 @@ class BehanceBlock extends BlockBase {
     else {
 
       $output[] = array(
-        '#markup' => $this->t('You must set an API key and username in the module settings. <a href="/admin/config/services/behance">Click here</a> to go the module settings.'),
+        '#markup' => 'You must set an API key and username in the module settings. <a href="/admin/config/services/behance">Click here</a> to go the module settings.',
         '#cache' => array('max-age' => 0),
         '#attached' => array('library' => array('behance_api/behance_api')),
       );
