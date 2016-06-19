@@ -35,7 +35,8 @@ INSTALLATION
 CONFIGURATION
 -------------
 
-In order to get access to the Behance API you need a unique API key. Go to https://www.behance.net/dev/register, and register your app. After that, go to
+In order to get access to the Behance API you need a unique API key. Go to
+https://www.behance.net/dev/register, and register your app. After that, go to
 "Configuration" -> "WEB SERVICES" -> "Behance API" and enter your API key and
 portfolio owner's Username or ID.
 
