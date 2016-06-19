@@ -27,8 +27,8 @@ class BehanceBlock extends BlockBase {
   private $behanceProjectsDate;
 
   /**
-    * {@inheritdoc}
-    */
+   * {@inheritdoc}
+   */
   public function build() {
 
     $config = $this->config('behance_api.settings');
