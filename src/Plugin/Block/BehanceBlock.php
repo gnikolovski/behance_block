@@ -157,8 +157,8 @@ class BehanceBlock extends BlockBase {
 
       // Save date when the file is downloaded.
       \Drupal::config('behance_api.settings')
-      ->set('behance_fields_date', date('d.m.Y'))
-      ->save();
+        ->set('behance_fields_date', date('d.m.Y'))
+        ->save();
 
     }
 
@@ -178,8 +178,8 @@ class BehanceBlock extends BlockBase {
 
       // Save date when the file is downloaded.
       \Drupal::config('behance_api.settings')
-      ->set('behance_projects_date', date('d.m.Y'))
-      ->save();
+        ->set('behance_projects_date', date('d.m.Y'))
+        ->save();
 
     }
 
