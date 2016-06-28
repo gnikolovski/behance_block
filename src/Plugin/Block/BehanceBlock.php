@@ -31,13 +31,13 @@ class BehanceBlock extends BlockBase {
    */
   public function build() {
 
-    $config = $this->config('behance_api.settings');
+    $config = \Drupal::config('behance_api.settings');
 
-    $this->api_key = $config->get('behance_api.api_key');
-    $this->user_id = $config->get('behance_api.user_id');
-    $this->newTab = $config->get('behance_api.newTab');
-    $this->behance_fields_date = $config->get('behance_api.behance_fields_date');
-    $this->behance_projects_date = $config->get('behance_api.behance_projects_date');
+    $this->api_key = $config->get('api_key');
+    $this->user_id = $config->get('user_id');
+    $this->newTab = $config->get('newTab');
+    $this->behance_fields_date = $config->get('behance_fields_date');
+    $this->behance_projects_date = $config->get('behance_projects_date');
 
     $output = array();
 
@@ -156,9 +156,9 @@ class BehanceBlock extends BlockBase {
       file_put_contents('public://behance_fields.json', $behance_fields_json);
 
       // Save date when the file is downloaded.
-      $config = $this->config('behance_api.settings');
-      $config->set('behance_fields_date', date('d.m.Y'));
-      $config->save();
+      \Drupal::config('behance_api.settings')
+      ->set('behance_fields_date', date('d.m.Y'))
+      ->save();
 
     }
 
@@ -177,9 +177,9 @@ class BehanceBlock extends BlockBase {
       file_put_contents('public://behance_projects.json', $projects_json);
 
       // Save date when the file is downloaded.
-      $config = $this->config('behance_api.settings');
-      $config->set('behance_projects_date', date('d.m.Y'));
-      $config->save();
+      \Drupal::config('behance_api.settings')
+      ->set('behance_projects_date', date('d.m.Y'))
+      ->save();
 
     }
 
