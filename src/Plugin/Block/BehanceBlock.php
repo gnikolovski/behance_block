@@ -156,7 +156,7 @@ class BehanceBlock extends BlockBase {
       file_put_contents('public://behance_fields.json', $behance_fields_json);
 
       // Save date when the file is downloaded.
-      \Drupal::config('behance_api.settings')
+      \Drupal::configFactory()->getEditable('behance_api.settings')
         ->set('behance_fields_date', date('d.m.Y'))
         ->save();
 
@@ -177,7 +177,7 @@ class BehanceBlock extends BlockBase {
       file_put_contents('public://behance_projects.json', $projects_json);
 
       // Save date when the file is downloaded.
-      \Drupal::config('behance_api.settings')
+      \Drupal::configFactory()->getEditable('behance_api.settings')
         ->set('behance_projects_date', date('d.m.Y'))
         ->save();
 

@@ -95,11 +95,11 @@ class BehanceSettingsForm extends ConfigFormBase {
 
     $values = $form_state->getValues();
 
-    \Drupal::config('behance_api.settings')
-      ->set('api_key', $values['api_key'])
-      ->set('user_id', $values['user_id'])
-      ->set('new_tab', $values['new_tab'])
-      ->save();
+    \Drupal::configFactory()->getEditable('behance_api.settings')
+    ->set('api_key', $values['api_key'])
+    ->set('user_id', $values['user_id'])
+    ->set('new_tab', $values['new_tab'])
+    ->save();
 
     parent::submitForm($form, $form_state);
 
