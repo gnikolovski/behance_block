@@ -35,7 +35,7 @@ class BehanceBlock extends BlockBase {
 
     $this->api_key = $config->get('api_key');
     $this->user_id = $config->get('user_id');
-    $this->newTab = $config->get('newTab');
+    $this->newTab = $config->get('new_tab');
     $this->behance_fields_date = $config->get('behance_fields_date');
     $this->behance_projects_date = $config->get('behance_projects_date');
 
@@ -51,7 +51,7 @@ class BehanceBlock extends BlockBase {
         '#theme' => 'behance_api',
         '#projects' => $this->content(),
         '#tags' => $this->tags(),
-        '#newTab' => $this->newTab(),
+        '#new_tab' => $this->getNewTab(),
         '#cache' => array('max-age' => 0),
         '#attached' => array('library' => array('behance_api/behance_api')),
       );
@@ -101,7 +101,7 @@ class BehanceBlock extends BlockBase {
   /**
    * Open links in new tab or not.
    */
-  private function newTab() {
+  private function getNewTab() {
 
     if ($this->newTab == 0) {
       return 'target=_self';
