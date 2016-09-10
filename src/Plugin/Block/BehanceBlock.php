@@ -5,10 +5,7 @@ namespace Drupal\behance_block\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Config\config_factoryInterface;
-use Drupal\Core\Utility\Token;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Drupal\Core\Template\Attribute;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * @file
@@ -31,7 +28,7 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
    *
    * @var \Drupal\Core\Config\config_factoryInterface
    */
-  protected $config_factory;
+  protected $configFactory;
 
   private $apiKey;
   private $userId;
@@ -42,8 +39,8 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
   /**
    * Class Constructor.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, \Drupal\Core\Config\ConfigFactoryInterface $config_factory) {
-    $this->config_factory = $config_factory;
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $configFactory) {
+    $this->config_factory = $configFactory;
   }
 
   /**
