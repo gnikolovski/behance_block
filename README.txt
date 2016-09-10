@@ -12,7 +12,7 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-The Behance API Drupal 8 module allows you to pull content from Behance and
+The Behance Block Drupal 8 module allows you to pull content from Behance and
 display projects on your own website. Behance is the leading online platform to
 showcase creative work, and by using this module you will get access to the data
 behind millions of projects. Since Behance limits API calls, this module stores
@@ -29,15 +29,15 @@ INSTALLATION
 ------------
 
 1. Install the module as usual.
-2. Go to "Extend" and enable the Behance API module.
+2. Go to "Extend" and enable the Behance Block module.
 
 
 CONFIGURATION
 -------------
 
-In order to get access to the Behance API you need a unique API key. Go to
+In order to get access to the Behance Block you need a unique API key. Go to
 https://www.behance.net/dev/register, and register your app. After that, go to
-"Configuration" -> "WEB SERVICES" -> "Behance API" and enter your API key and
+"Configuration" -> "WEB SERVICES" -> "Behance Block" and enter your API key and
 portfolio owner's Username or ID.
 
 
@@ -45,7 +45,8 @@ USING THE MODULE
 ----------------
 
 1. Create a basic page.
-2. Add a Behance API block to this page.
+2. Add a Behance Block to this page by going to "Structure" -> "Block layout"
+and then click on the Place block button.
 
 
 AUTHOR
@@ -55,5 +56,6 @@ Goran Nikolovski, https://www.drupal.org/user/3451979
 
 Company: Studio Present, Subotica, Serbia
 Website: http://www.studiopresent.com
+Email: goran@studiopresent.com
 Email: info@studiopresent.com
-https://www.drupal.org/node/2294967
+https://www.drupal.org/studio-present

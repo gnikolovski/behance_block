@@ -1,3 +1,7 @@
 Behance API module 8.x-1.x, 2016-06-01
 --------------------------------------
 - Initial release
+
+Behance Block module 8.x-1.x, 2016-09-10
+----------------------------------------
+- After review on Drupal.org module changed name to Behance Block
