@@ -34,7 +34,7 @@ class BehanceSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $config = \Drupal::config('behance_block.settings');
+    $config = $this->config('behance_block.settings');
 
     // API key field.
     $form['api_key'] = array(
@@ -95,11 +95,11 @@ class BehanceSettingsForm extends ConfigFormBase {
 
     $values = $form_state->getValues();
 
-    \Drupal::configFactory()->getEditable('behance_block.settings')
-      ->set('api_key', $values['api_key'])
-      ->set('user_id', $values['user_id'])
-      ->set('new_tab', $values['new_tab'])
-      ->save();
+    $config = $this->config('behance_block.settings');
+    $config->set('api_key', $values['api_key']);
+    $config->set('user_id', $values['user_id']);
+    $config->set('new_tab', $values['new_tab']);
+    $config->save();
 
     parent::submitForm($form, $form_state);
 

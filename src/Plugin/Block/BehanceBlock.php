@@ -3,6 +3,12 @@
 namespace Drupal\behance_block\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Config\config_factoryInterface;
+use Drupal\Core\Utility\Token;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Drupal\Core\Template\Attribute;
 
 /**
  * @file
@@ -18,7 +24,14 @@ use Drupal\Core\Block\BlockBase;
  *   category = @Translation("Integrations"),
  * )
  */
-class BehanceBlock extends BlockBase {
+class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The config_factory.
+   *
+   * @var \Drupal\Core\Config\config_factoryInterface
+   */
+  protected $config_factory;
 
   private $apiKey;
   private $userId;
@@ -27,17 +40,31 @@ class BehanceBlock extends BlockBase {
   private $behanceProjectsDate;
 
   /**
+   * Class Constructor.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, \Drupal\Core\Config\ConfigFactoryInterface $config_factory) {
+    $this->config_factory = $config_factory;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration, $plugin_id, $plugin_definition, $container->get('config.factory')
+    );
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function build() {
 
-    $config = \Drupal::config('behance_block.settings');
-
-    $this->api_key = $config->get('api_key');
-    $this->user_id = $config->get('user_id');
-    $this->newTab = $config->get('new_tab');
-    $this->behance_fields_date = $config->get('behance_fields_date');
-    $this->behance_projects_date = $config->get('behance_projects_date');
+    $this->api_key = $this->config_factory->get('behance_block.settings')->get('api_key');
+    $this->user_id = $this->config_factory->get('behance_block.settings')->get('user_id');
+    $this->new_tab = $this->config_factory->get('behance_block.settings')->get('new_tab');
+    $this->behance_fields_date = $this->config_factory->get('behance_block.settings')->get('behance_fields_date');
+    $this->behance_projects_date = $this->config_factory->get('behance_block.settings')->get('behance_projects_date');
 
     $output = array();
 
@@ -156,9 +183,7 @@ class BehanceBlock extends BlockBase {
       file_put_contents('public://behance_fields.json', $behance_fields_json);
 
       // Save date when the file is downloaded.
-      \Drupal::configFactory()->getEditable('behance_block.settings')
-        ->set('behance_fields_date', date('d.m.Y'))
-        ->save();
+      $this->config_factory->getEditable('behance_block.settings')->set('behance_fields_date', date('d.m.Y'))->save();
 
     }
 
@@ -177,9 +202,7 @@ class BehanceBlock extends BlockBase {
       file_put_contents('public://behance_projects.json', $projects_json);
 
       // Save date when the file is downloaded.
-      \Drupal::configFactory()->getEditable('behance_block.settings')
-        ->set('behance_projects_date', date('d.m.Y'))
-        ->save();
+      $this->config_factory->getEditable('behance_block.settings')->set('behance_projects_date', date('d.m.Y'))->save();
 
     }
 
