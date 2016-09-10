@@ -6,6 +6,8 @@ use Drupal\Core\Block\BlockBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * @file
@@ -172,7 +174,7 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
   private function downloadFieldsJson() {
 
     // Get response from endpoint and save it.
-    $client = new \GuzzleHttp\Client();
+    $client = new Client();
 
     try {
       $response = $client->get('http://api.behance.net/v2/fields?api_key=' . $this->api_key);
@@ -224,7 +226,7 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
     $loop_through = TRUE;
     $projects_json_full = array();
 
-    $client = new \GuzzleHttp\Client();
+    $client = new Client();
 
     // Loop while you get not empty JSON response.
     while ($loop_through) {

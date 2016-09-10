@@ -112,8 +112,8 @@ class BehanceSettingsForm extends ConfigFormBase {
    */
   private function isDataValid($api_key, $user_id) {
 
-    $client = new \GuzzleHttp\Client();
-    
+    $client = new Client();
+
     try {
       $response = $client->get('https://api.behance.net/v2/users/' . $user_id . '?client_id=' . $api_key);
       $response_code = $response->getStatusCode();
