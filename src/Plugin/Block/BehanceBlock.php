@@ -170,15 +170,14 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
    * Get Behance field names (tags) and store them in JSON file.
    */
   private function downloadFieldsJson() {
-    
+
     // Get response from endpoint and save it.
     $client = new \GuzzleHttp\Client();
-    
+
     try {
       $response = $client->get('http://api.behance.net/v2/fields?api_key=' . $this->api_key);
       $response_code = $response->getStatusCode();
       $behance_fields_json = $response->getBody();
-      $behance_fields_array = json_decode($behance_fields_json, TRUE);
     }
     catch (ClientException $e) {
       $response = $e->getResponse();
@@ -224,17 +223,17 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
     $i = 1;
     $loop_through = TRUE;
     $projects_json_full = array();
-    
+
     $client = new \GuzzleHttp\Client();
 
     // Loop while you get not empty JSON response.
     while ($loop_through) {
-    
+
       try {
         $response = $client->get('http://api.behance.net/v2/users/' . $this->user_id . '/projects?api_key=' . $this->api_key . '&per_page=24&page=' . $i);
         $response_code = $response->getStatusCode();
         $projects_json_page = $response->getBody();
-        $projects_json = json_decode($projects_json_page, TRUE);      
+        $projects_json = json_decode($projects_json_page, TRUE);
       }
       catch (ClientException $e) {
         $response = $e->getResponse();
