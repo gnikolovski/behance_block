@@ -42,6 +42,7 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
    * Class Constructor.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $configFactory) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->config_factory = $configFactory;
   }
 

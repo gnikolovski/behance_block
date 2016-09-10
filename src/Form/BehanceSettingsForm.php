@@ -13,7 +13,7 @@ use GuzzleHttp\Exception\ClientException;
  */
 
 /**
- * Defines a form that configures behance api settings.
+ * Defines a form that configures behance block settings.
  */
 class BehanceSettingsForm extends ConfigFormBase {
 
