@@ -170,12 +170,23 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
    * Get Behance field names (tags) and store them in JSON file.
    */
   private function downloadFieldsJson() {
-
+    
     // Get response from endpoint and save it.
-    $behance_fields_json = $this->fileGetContentsCurl('https://api.behance.net/v2/fields?api_key=' . $this->api_key);
-    $behance_fields_array = json_decode($behance_fields_json, TRUE);
+    $client = new \GuzzleHttp\Client();
+    
+    try {
+      $response = $client->get('http://api.behance.net/v2/fields?api_key=' . $this->api_key);
+      $response_code = $response->getStatusCode();
+      $behance_fields_json = $response->getBody();
+      $behance_fields_array = json_decode($behance_fields_json, TRUE);
+    }
+    catch (ClientException $e) {
+      $response = $e->getResponse();
+      $response_code = $response->getStatusCode();
+      watchdog_exception('behance_block', $e);
+    }
 
-    if ($behance_fields_array['http_code'] == 200) {
+    if ($response_code == 200) {
 
       file_put_contents('public://behance_fields.json', $behance_fields_json);
 
@@ -213,16 +224,25 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
     $i = 1;
     $loop_through = TRUE;
     $projects_json_full = array();
+    
+    $client = new \GuzzleHttp\Client();
 
     // Loop while you get not empty JSON response.
     while ($loop_through) {
+    
+      try {
+        $response = $client->get('http://api.behance.net/v2/users/' . $this->user_id . '/projects?api_key=' . $this->api_key . '&per_page=24&page=' . $i);
+        $response_code = $response->getStatusCode();
+        $projects_json_page = $response->getBody();
+        $projects_json = json_decode($projects_json_page, TRUE);      
+      }
+      catch (ClientException $e) {
+        $response = $e->getResponse();
+        $response_code = $response->getStatusCode();
+        watchdog_exception('behance_block', $e);
+      }
 
-      $projects_json_page = $this->fileGetContentsCurl('https://api.behance.net/v2/users/' . $this->user_id . '/projects?api_key=' . $this->api_key . '&per_page=24&page=' . $i);
-
-      $projects_json = json_decode($projects_json_page, TRUE);
-      $http_code = $projects_json['http_code'];
-
-      if ($http_code == 200) {
+      if ($response_code == 200) {
         if ($projects_json['projects']) {
           foreach ($projects_json['projects'] as $projects) {
             $projects_json_full[] = $projects;
@@ -245,22 +265,6 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
     else {
       return FALSE;
     }
-
-  }
-
-  /**
-   * File get contents with curl.
-   */
-  private function fileGetContentsCurl($url) {
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    $data = curl_exec($ch);
-    curl_close($ch);
-
-    return $data;
 
   }
 

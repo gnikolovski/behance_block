@@ -4,6 +4,8 @@ namespace Drupal\behance_block\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * @file
@@ -110,20 +112,28 @@ class BehanceSettingsForm extends ConfigFormBase {
    */
   private function isDataValid($api_key, $user_id) {
 
-    $response_json = $this->fileGetContentsCurl('https://api.behance.net/v2/users/' . $user_id . '?client_id=' . $api_key);
-
-    $response_array = json_decode($response_json, TRUE);
+    $client = new \GuzzleHttp\Client();
+    
+    try {
+      $response = $client->get('https://api.behance.net/v2/users/' . $user_id . '?client_id=' . $api_key);
+      $response_code = $response->getStatusCode();
+    }
+    catch (ClientException $e) {
+      $response = $e->getResponse();
+      $response_code = $response->getStatusCode();
+      watchdog_exception('behance_block', $e);
+    }
 
     // Valid (200 = OK).
-    if ($response_array['http_code'] == 200) {
+    if ($response_code == 200) {
       return 200;
     }
     // API key in not valid.
-    elseif ($response_array['http_code'] == 403) {
+    elseif ($response_code == 403) {
       return 403;
     }
     // User not found.
-    elseif ($response_array['http_code'] == 404) {
+    elseif ($response_code == 404) {
       return 404;
     }
 
@@ -141,22 +151,6 @@ class BehanceSettingsForm extends ConfigFormBase {
     if (file_exists('public://behance_projects.json')) {
       unlink('public://behance_projects.json');
     }
-
-  }
-
-  /**
-   * File get contents with curl.
-   */
-  private function fileGetContentsCurl($url) {
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    $data = curl_exec($ch);
-    curl_close($ch);
-
-    return $data;
 
   }
 
