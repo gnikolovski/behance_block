@@ -1,21 +1,21 @@
 <?php
 
-namespace Drupal\behance_api\Plugin\Block;
+namespace Drupal\behance_block\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 
 /**
  * @file
- * Contains \Drupal\behance_api\Plugin\Block\BehanceBlock.
+ * Contains \Drupal\behance_block\Plugin\Block\BehanceBlock.
  */
 
 /**
- * Provides a 'Behance API' Block.
+ * Provides a 'Behance Block' Block.
  *
  * @Block(
- *   id = "behance_api",
- *   admin_label = @Translation("Behance API"),
- *   category = @Translation("Custom"),
+ *   id = "behance_block",
+ *   admin_label = @Translation("Behance Block"),
+ *   category = @Translation("Integrations"),
  * )
  */
 class BehanceBlock extends BlockBase {
@@ -31,7 +31,7 @@ class BehanceBlock extends BlockBase {
    */
   public function build() {
 
-    $config = \Drupal::config('behance_api.settings');
+    $config = \Drupal::config('behance_block.settings');
 
     $this->api_key = $config->get('api_key');
     $this->user_id = $config->get('user_id');
@@ -48,12 +48,12 @@ class BehanceBlock extends BlockBase {
     if ($is_api_key_set && $is_user_id_set) {
 
       $output[] = array(
-        '#theme' => 'behance_api',
+        '#theme' => 'behance_block',
         '#projects' => $this->content(),
         '#tags' => $this->tags(),
         '#new_tab' => $this->getNewTab(),
         '#cache' => array('max-age' => 0),
-        '#attached' => array('library' => array('behance_api/behance_api')),
+        '#attached' => array('library' => array('behance_block/behance_block')),
       );
 
     }
@@ -63,7 +63,7 @@ class BehanceBlock extends BlockBase {
       $output[] = array(
         '#markup' => 'You must set an API key and username in the module settings. <a href="/admin/config/services/behance">Click here</a> to go the module settings.',
         '#cache' => array('max-age' => 0),
-        '#attached' => array('library' => array('behance_api/behance_api')),
+        '#attached' => array('library' => array('behance_block/behance_block')),
       );
 
     }
@@ -156,7 +156,7 @@ class BehanceBlock extends BlockBase {
       file_put_contents('public://behance_fields.json', $behance_fields_json);
 
       // Save date when the file is downloaded.
-      \Drupal::configFactory()->getEditable('behance_api.settings')
+      \Drupal::configFactory()->getEditable('behance_block.settings')
         ->set('behance_fields_date', date('d.m.Y'))
         ->save();
 
@@ -177,7 +177,7 @@ class BehanceBlock extends BlockBase {
       file_put_contents('public://behance_projects.json', $projects_json);
 
       // Save date when the file is downloaded.
-      \Drupal::configFactory()->getEditable('behance_api.settings')
+      \Drupal::configFactory()->getEditable('behance_block.settings')
         ->set('behance_projects_date', date('d.m.Y'))
         ->save();
 

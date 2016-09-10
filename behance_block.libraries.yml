@@ -1,0 +1,5 @@
+behance_block:
+  version: 1.x
+  css:
+    theme:
+      css/behance_block.css: {}

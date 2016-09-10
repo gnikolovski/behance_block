@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\behance_api\Form;
+namespace Drupal\behance_block\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
  * @file
- * Contains \Drupal\behance_api\Form\BehanceSettingsForm.
+ * Contains \Drupal\behance_block\Form\BehanceSettingsForm.
  */
 
 /**
@@ -19,14 +19,14 @@ class BehanceSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'behance_api_settings';
+    return 'behance_block_settings';
   }
 
   /**
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-    return array('behance_api.settings');
+    return array('behance_block.settings');
   }
 
   /**
@@ -34,7 +34,7 @@ class BehanceSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $config = \Drupal::config('behance_api.settings');
+    $config = \Drupal::config('behance_block.settings');
 
     // API key field.
     $form['api_key'] = array(
@@ -95,7 +95,7 @@ class BehanceSettingsForm extends ConfigFormBase {
 
     $values = $form_state->getValues();
 
-    \Drupal::configFactory()->getEditable('behance_api.settings')
+    \Drupal::configFactory()->getEditable('behance_block.settings')
     ->set('api_key', $values['api_key'])
     ->set('user_id', $values['user_id'])
     ->set('new_tab', $values['new_tab'])
