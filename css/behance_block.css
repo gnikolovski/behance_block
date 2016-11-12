@@ -1,10 +1,3 @@
-@font-face {
-  font-family: "BeIcons";
-  font-style: normal;
-  font-weight: normal;
-  src: url("//a3.behance.net/fonts/BeIcons/BeIcons.eot?cb=1894785834?#iefix") format("embedded-opentype"), url("//a3.behance.net/fonts/BeIcons/BeIcons.woff?cb=1894785834") format("woff"), url("//a3.behance.net/fonts/BeIcons/BeIcons.ttf?cb=1894785834") format("truetype"), url("//a3.behance.net/fonts/BeIcons/BeIcons.svg?cb=1894785834#Behance") format("svg");
-}
-
 .project-cover {
   background: #fff none repeat scroll 0 0;
   display: inline-block;
@@ -98,36 +91,8 @@
   position: relative;
 }
 
-.beicons,
-.beicons-pre::before {
-  -moz-user-select: none;
-  display: inline-block;
-  font-family: "BeIcons";
-  font-size: 16px;
-  font-weight: normal !important;
-  height: 16px;
-  line-height: 0;
-  margin-right: 5px;
-  position: relative;
-  text-rendering: optimizelegibility;
-  text-transform: none;
-  top: 1px;
-  width: 16px;
-}
-
 .cover-stat {
   color: #555;
   font-weight: bold;
   margin-right: 8px;
-}
-
-.beicons-pre-eye::before {
-  content: "@";
-  left: -1px;
-  top: 3px;
-}
-
-.beicons-pre-thumb::before {
-  content: "?";
-  top: 2px;
 }
