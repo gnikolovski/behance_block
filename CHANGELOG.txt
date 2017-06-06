@@ -1,3 +1,0 @@
-Behance Block module 8.x-1.x, 2016-10-06
-----------------------------------------
-- Initial release
