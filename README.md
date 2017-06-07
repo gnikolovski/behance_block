@@ -29,7 +29,7 @@ None.
 ## CONFIGURATION
 
 In order to get access to the Behance API you need a unique API key. Go to
-(https://www.behance.net/dev/register), and register your app. After that, go to
+https://www.behance.net/dev/register and register your app. After that, go to
 "Configuration" -> "WEB SERVICES" -> "Behance Block" and enter your API key and
 the username or user ID of the project's owner.
 
