@@ -1,6 +1,6 @@
 {
     "name": "drupal/behance_block",
-    "description": "Display your Behance projects in a block.",
+    "description": "Display Behance projects in a block.",
     "type": "drupal-module",
     "homepage": "https://www.drupal.org/project/behance_block",
     "authors": [
