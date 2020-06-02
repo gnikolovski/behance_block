@@ -110,7 +110,8 @@ class BehanceSettingsForm extends ConfigFormBase {
     try {
       $response = $client->get('https://api.behance.net/v2/users/' . $user_id . '?client_id=' . $api_key);
       $response_code = $response->getStatusCode();
-    } catch (ClientException $e) {
+    }
+    catch (ClientException $e) {
       $response = $e->getResponse();
       $response_code = $response->getStatusCode();
       watchdog_exception('behance_block', $e);

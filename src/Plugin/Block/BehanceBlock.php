@@ -32,8 +32,25 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
    */
   protected $configFactory;
 
+  /**
+   * The API key.
+   *
+   * @var string
+   */
   protected $apiKey;
+
+  /**
+   * The user id.
+   *
+   * @var int
+   */
   protected $userID;
+
+  /**
+   * The new tab flag.
+   *
+   * @var bool
+   */
   protected $newTab;
 
   /**
@@ -78,11 +95,11 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
         '#tags' => $this->tags(),
         '#new_tab' => $this->newTab == 0 ? 'target=_self' : 'target=_blank',
         '#cache' => [
-          'max-age' => 0
+          'max-age' => 0,
         ],
         '#attached' => [
           'library' => [
-            'behance_block/behance_block'
+            'behance_block/behance_block',
           ],
         ],
       ];
@@ -92,11 +109,11 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
       return [
         '#markup' => 'You must set an API key and the username in the module settings. <a href="/admin/config/services/behance">Click here</a> to go the module settings.',
         '#cache' => [
-          'max-age' => 0
+          'max-age' => 0,
         ],
         '#attached' => [
           'library' => [
-            'behance_block/behance_block'
+            'behance_block/behance_block',
           ],
         ],
       ];
@@ -144,7 +161,8 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
         $response_code = $response->getStatusCode();
         $projects_json_page = $response->getBody();
         $projects_json = json_decode($projects_json_page, TRUE);
-      } catch (ClientException $e) {
+      }
+      catch (ClientException $e) {
         $response = $e->getResponse();
         $response_code = $response->getStatusCode();
         watchdog_exception('behance_block', $e);
@@ -211,7 +229,8 @@ class BehanceBlock extends BlockBase implements ContainerFactoryPluginInterface 
         $tags[$behance_field['name']] = $behance_field['id'];
       }
       return $tags;
-    } catch (ClientException $e) {
+    }
+    catch (ClientException $e) {
       watchdog_exception('behance_block', $e);
       return [];
     }
