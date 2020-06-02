@@ -1,6 +1,7 @@
 name: 'Behance Block'
 type: module
-description: 'Display Behance projects in a block.'
+description: 'Provides a block to display Behance projects.'
 package: Integrations
 core: 8.x
+core_version_requirement: ^8 || ^9
 configure: behance_block.admin_settings
